@@ -190,9 +190,7 @@
         }
         
         .jump-scare img {
-            max-width: 80%;
-            max-height: 80%;
-            animation: scareZoom 2s ease-out;
+            /* Animation now handled inline */
         }
         
         @keyframes flashEffect {
@@ -204,6 +202,11 @@
             0% { transform: scale(0.1) rotate(-180deg); opacity: 0; }
             50% { transform: scale(1.2) rotate(0deg); opacity: 1; }
             100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
         
         .hidden {
@@ -256,7 +259,10 @@
         
         <!-- Jump Scare Element -->
         <div id="jumpScare" class="jump-scare">
-            <img src="jobs.jpeg" alt="Jump Scare">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                <h1 style="color: white; font-size: 4em; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); margin-bottom: 30px; animation: pulse 0.3s infinite;">JOBS</h1>
+                <img src="jobs.jpeg" alt="Jump Scare" style="max-width: 60%; max-height: 60%; animation: scareZoom 2s ease-out;">
+            </div>
         </div>
         
         <form id="testForm">
@@ -846,6 +852,7 @@
     <script>
         let currentTest = 1;
         let jumpScareShown = false;
+        let globalJumpScareShown = false; // Only show jump scare once across all tests
         
         const testData = {
             1: {
@@ -1006,7 +1013,7 @@
             document.getElementById('testDescription').textContent = testDescriptions[testNumber];
             
             currentTest = testNumber;
-            jumpScareShown = false;
+            jumpScareShown = false; // Reset for individual test, but keep globalJumpScareShown
             
             // Hide results and reset form
             document.getElementById('results').style.display = 'none';
@@ -1073,9 +1080,10 @@
                 }
             }
             
-            // Show jump scare before displaying results
-            if (!jumpScareShown) {
+            // Show jump scare only once across all tests
+            if (!globalJumpScareShown) {
                 showJumpScare();
+                globalJumpScareShown = true;
                 
                 setTimeout(() => {
                     displayResults(score, totalQuestions, wrongAnswers, currentTestData);
