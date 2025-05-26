@@ -267,12 +267,42 @@
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
 
-        .video-embed {
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .video-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .video-thumbnail {
             width: 100%;
-            height: 200px;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
             margin-bottom: 15px;
         }
 
@@ -480,37 +510,56 @@
 
                 <!-- Videos Section -->
                 <div id="videos-section" class="hidden">
-                    <h3>Educational Videos (5-10 minutes each) (Just click watch on youtube to see them as their preview is not loading)</h3>
+                    <h3>Educational Video Tutorials</h3>
+                    <p>Click the links below to watch helpful psychology videos on YouTube (5-10 minutes each)</p>
                     <div class="video-grid">
                         <div class="video-card">
-                            <iframe class="video-embed" src="https://www.youtube.com/embed/vo4pMVb0R6M" title="Meet Your Master - Getting to Know Your Brain"></iframe>
+                            <div class="video-thumbnail">🧠</div>
                             <h4>Meet Your Master - Getting to Know Your Brain</h4>
                             <p>Crash Course Psychology overview of brain anatomy and basic functions.</p>
+                            <a href="https://www.youtube.com/watch?v=vo4pMVb0R6M" target="_blank" class="video-link">
+                                ▶️ Watch on YouTube
+                            </a>
                         </div>
                         <div class="video-card">
-                            <iframe class="video-embed" src="https://www.youtube.com/embed/OZG8M_ldA90" title="The Chemical Mind"></iframe>
+                            <div class="video-thumbnail">⚗️</div>
                             <h4>The Chemical Mind: Crash Course Psychology</h4>
                             <p>Understanding neurotransmitters and how brain chemistry affects behavior.</p>
+                            <a href="https://www.youtube.com/watch?v=OZG8M_ldA90" target="_blank" class="video-link">
+                                ▶️ Watch on YouTube
+                            </a>
                         </div>
                         <div class="video-card">
-                            <iframe class="video-embed" src="https://www.youtube.com/embed/WuyPuH9ojCE" title="Consciousness"></iframe>
+                            <div class="video-thumbnail">💭</div>
                             <h4>Consciousness: Crash Course Psychology</h4>
                             <p>Exploring different states of consciousness and awareness.</p>
+                            <a href="https://www.youtube.com/watch?v=WuyPuH9ojCE" target="_blank" class="video-link">
+                                ▶️ Watch on YouTube
+                            </a>
                         </div>
                         <div class="video-card">
-                            <iframe class="video-embed" src="https://www.youtube.com/embed/qIJIdj7VgWs" title="Sleep and Dreams"></iframe>
+                            <div class="video-thumbnail">😴</div>
                             <h4>To Sleep, Perchance to Dream</h4>
                             <p>The neuroscience of sleep cycles, REM sleep, and dreaming.</p>
+                            <a href="https://www.youtube.com/watch?v=qIJIdj7VgWs" target="_blank" class="video-link">
+                                ▶️ Watch on YouTube
+                            </a>
                         </div>
                         <div class="video-card">
-                            <iframe class="video-embed" src="https://www.youtube.com/embed/YQOfW6grJ5s" title="How We Make Memories"></iframe>
+                            <div class="video-thumbnail">🧩</div>
                             <h4>How We Make Memories</h4>
                             <p>The biological basis of memory formation and storage in the brain.</p>
+                            <a href="https://www.youtube.com/watch?v=YQOfW6grJ5s" target="_blank" class="video-link">
+                                ▶️ Watch on YouTube
+                            </a>
                         </div>
                         <div class="video-card">
-                            <iframe class="video-embed" src="https://www.youtube.com/embed/loCBvaj4eSg" title="The Power of Motivation"></iframe>
+                            <div class="video-thumbnail">🎯</div>
                             <h4>The Power of Motivation</h4>
                             <p>Biological and psychological factors that drive human motivation and behavior.</p>
+                            <a href="https://www.youtube.com/watch?v=loCBvaj4eSg" target="_blank" class="video-link">
+                                ▶️ Watch on YouTube
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -724,16 +773,6 @@
                                 <p><strong>Dual Coding:</strong> Combine verbal and visual information</p>
                                 <p><strong>Interleaving:</strong> Mix different topics in study sessions</p>
                             </div>
-                        </div>
-                    </div>
-                </div> src="https://www.youtube.com/embed/OwNxW5foOWE" title="Motivation Psychology"></iframe>
-                            <h4>Motivation Psychology</h4>
-                            <p>Biological and psychological factors in motivation.</p>
-                        </div>
-                        <div class="video-card">
-                            <iframe class="video-embed" src="https://www.youtube.com/embed/dFABfKKcEBo" title="Cognitive Processes"></iframe>
-                            <h4>Cognitive Processes</h4>
-                            <p>How the brain processes information and makes decisions.</p>
                         </div>
                     </div>
                 </div>
