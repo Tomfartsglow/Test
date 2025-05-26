@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychology Test Suite</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+        
+        .test-selector {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .test-btn {
+            padding: 12px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .test-btn:hover, .test-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .question {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .question h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #667eea;
+        }
+        
+        .option input[type="checkbox"], .option input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+            accent-color: #667eea;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 10px 0 0;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f0f8ff;
+            border-radius: 10px;
+            border: 2px solid #667eea;
+            display: none;
+        }
+        
+        .score {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .flashcards {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .flashcard {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #e74c3c;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .flashcard h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        
+        .correct-answer {
+            color: #27ae60;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .explanation {
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #27ae60 !important;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #e74c3c !important;
+        }
+        
+        /* Jump Scare Styles */
+        .jump-scare {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: flashEffect 0.1s infinite;
+        }
+        
+        .jump-scare img {
+            max-width: 80%;
+            max-height: 80%;
+            animation: scareZoom 2s ease-out;
+        }
+        
+        @keyframes flashEffect {
+            0%, 50% { background: black; }
+            25%, 75% { background: #ff0000; }
+        }
+        
+        @keyframes scareZoom {
+            0% { transform: scale(0.1) rotate(-180deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .next-test-section {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .next-test-btn {
+            background: white;
+            color: #28a745;
+            border: 2px solid white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .next-test-btn:hover {
+            background: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Psychology Test Suite</h1>
+        
+        <div class="test-selector">
+            <div class="test-nav">
+                <button class="test-btn active" onclick="switchTest(1)">Test 1: Biological Bases</button>
+                <button class="test-btn" onclick="switchTest(2)">Test 2: Memory & Learning</button>
+                <button class="test-btn" onclick="switchTest(3)">Test 3: Consciousness</button>
+                <button class="test-btn" onclick="switchTest(4)">Test 4: Motivation</button>
+                <button class="test-btn" onclick="switchTest(5)">Test 5: Integration</button>
+            </div>
+            <p id="testDescription" style="color: #666; margin-bottom: 30px;">
+                Test your knowledge of biological bases of behavior and brain structures
+            </p>
+        </div>
+        
+        <!-- Jump Scare Element -->
+        <div id="jumpScare" class="jump-scare">
+            <img src="jobs.jpeg" alt="Jump Scare">
+        </div>
+        
+        <form id="testForm">
+            <div id="test1" class="test-content">
+                <!-- Test 1 Questions -->
+                <div class="question">
+                    <h3>1. Which brain areas are primarily responsible for language comprehension and production?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="checkbox" name="q1" value="a">
+                            Broca's and Wernicke's areas
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="q1" value="b">
+                            Occipital and parietal lobes
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="q1" value="c">
+                            Thalamus and hypothalamus
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="q1" value="d">
+                            Hippocampus and amygdala
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>2. What is neuroplasticity?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q2" value="a">
+                            The brain's ability to change structure and organization
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="b">
+                            The transmission of electrical signals between neurons
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="c">
+                            The specialization of brain hemispheres
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="d">
+                            The production of neurotransmitters
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>3. Which hemisphere specializes in spatial tasks and emotional content?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="a">
+                            Left hemisphere
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="b">
+                            Right hemisphere
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="c">
+                            Both hemispheres equally
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="d">
+                            Neither hemisphere
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>4. Which structures are involved in motivation? (Select all that apply)</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="checkbox" name="q4" value="a">
+                            Hypothalamus
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="q4" value="b">
+                            Limbic system
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="q4" value="c">
+                            Reticular formation
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="q4" value="d">
+                            Pineal gland
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>5. Which neurotransmitter is primarily involved in reinforcement?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q5" value="a">
+                            Serotonin
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="b">
+                            Dopamine
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="c">
+                            Acetylcholine
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="d">
+                            GABA
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="test2" class="test-content hidden">
+                <!-- Test 2 Questions -->
+                <div class="question">
+                    <h3>1. Which brain structure is most important for long-term memory consolidation?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t2q1" value="a">
+                            Hippocampus
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q1" value="b">
+                            Amygdala
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q1" value="c">
+                            Thalamus
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q1" value="d">
+                            Cerebellum
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>2. What type of memory is stored in the frontal lobes?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t2q2" value="a">
+                            Long-term memory
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q2" value="b">
+                            Working memory
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q2" value="c">
+                            Sensory memory
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q2" value="d">
+                            Procedural memory
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>3. Which cognitive process helps organize experiences? (Select all that apply)</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="checkbox" name="t2q3" value="a">
+                            Concepts
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t2q3" value="b">
+                            Mental files
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t2q3" value="c">
+                            Priming
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t2q3" value="d">
+                            Filtering
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>4. What is priming in cognitive psychology?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t2q4" value="a">
+                            The ability to focus attention
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q4" value="b">
+                            Exposure to one stimulus influences response to others
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q4" value="c">
+                            The formation of new memories
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q4" value="d">
+                            The retrieval of stored information
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>5. What enables the brain to learn new skills?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t2q5" value="a">
+                            Neural plasticity
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q5" value="b">
+                            Hemispheric specialization
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q5" value="c">
+                            Neurotransmitter balance
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t2q5" value="d">
+                            Genetic programming
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="test3" class="test-content hidden">
+                <!-- Test 3 Questions -->
+                <div class="question">
+                    <h3>1. What is consciousness defined as?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t3q1" value="a">
+                            The ability to think and reason
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q1" value="b">
+                            Awareness of internal and external stimuli
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q1" value="c">
+                            The processing of sensory information
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q1" value="d">
+                            The formation of memories
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>2. Which brain structure regulates sleep-wake cycles?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t3q2" value="a">
+                            Hypothalamus
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q2" value="b">
+                            Pineal gland
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q2" value="c">
+                            Reticular formation
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q2" value="d">
+                            All of the above
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>3. What hormone is produced by the pineal gland?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t3q3" value="a">
+                            Cortisol
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q3" value="b">
+                            Melatonin
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q3" value="c">
+                            Serotonin
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q3" value="d">
+                            Dopamine
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>4. Which sleep stage is associated with brain restructuring and learning?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t3q4" value="a">
+                            Stage 1 sleep
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q4" value="b">
+                            Stage 2 sleep
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q4" value="c">
+                            Deep sleep
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t3q4" value="d">
+                            REM sleep
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>5. What characterizes altered states of consciousness? (Select all that apply)</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="checkbox" name="t3q5" value="a">
+                            Hypnosis
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t3q5" value="b">
+                            Meditation
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t3q5" value="c">
+                            Flow state
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t3q5" value="d">
+                            Normal waking consciousness
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="test4" class="test-content hidden">
+                <!-- Test 4 Questions -->
+                <div class="question">
+                    <h3>1. What is cognitive dissonance?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t4q1" value="a">
+                            The ability to focus attention
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q1" value="b">
+                            Tension from conflicting beliefs or behaviors
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q1" value="c">
+                            The preference for familiar stimuli
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q1" value="d">
+                            The process of forming memories
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>2. What does WOOP stand for?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t4q2" value="a">
+                            Work, Organize, Optimize, Perform
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q2" value="b">
+                            Wish, Outcome, Obstacle, Plan
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q2" value="c">
+                            Will, Order, Operation, Purpose
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q2" value="d">
+                            Want, Objective, Opportunity, Practice
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>3. What is a growth mindset?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t4q3" value="a">
+                            Believing abilities are fixed
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q3" value="b">
+                            Believing abilities can be developed
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q3" value="c">
+                            Focusing only on performance
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q3" value="d">
+                            Avoiding challenges
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>4. How do habits form? (Select all that apply)</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="checkbox" name="t4q4" value="a">
+                            Cue association
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t4q4" value="b">
+                            Routine strengthening
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t4q4" value="c">
+                            Reward reinforcement
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t4q4" value="d">
+                            Random occurrence
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>5. What brain region controls top-down self-regulation?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t4q5" value="a">
+                            Limbic system
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q5" value="b">
+                            Prefrontal cortex
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q5" value="c">
+                            Hippocampus
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t4q5" value="d">
+                            Cerebellum
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="test5" class="test-content hidden">
+                <!-- Test 5 Questions -->
+                <div class="question">
+                    <h3>1. How do biological states affect cognition? (Select all that apply)</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="checkbox" name="t5q1" value="a">
+                            Sleep deprivation impairs attention and memory
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t5q1" value="b">
+                            Emotional states influence information processing
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t5q1" value="c">
+                            Blood sugar affects brain function
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="t5q1" value="d">
+                            Biological states have no effect on cognition
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>2. Which neurotransmitter enhances memory for emotional events?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t5q2" value="a">
+                            Dopamine
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q2" value="b">
+                            Norepinephrine
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q2" value="c">
+                            Serotonin
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q2" value="d">
+                            GABA
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>3. What connects motivation, consciousness, and cognition?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t5q3" value="a">
+                            They are completely separate systems
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q3" value="b">
+                            They all share biological foundations
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q3" value="c">
+                            Only motivation affects the others
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q3" value="d">
+                            They only interact during sleep
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>4. How does the flow state integrate multiple psychological domains?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t5q4" value="a">
+                            It only involves consciousness
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q4" value="b">
+                            It combines focused attention, intrinsic motivation, and altered consciousness
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q4" value="c">
+                            It only affects biological processes
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q4" value="d">
+                            It has no connection to other domains
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>5. What demonstrates the interconnection of all psychological domains?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="t5q5" value="a">
+                            Each domain operates independently
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q5" value="b">
+                            Neuroplasticity, mindset, and habits show how biology, cognition, motivation, and consciousness interact
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q5" value="c">
+                            Only biological factors matter
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="t5q5" value="d">
+                            Psychological domains cannot be integrated
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" class="btn" onclick="gradeTest()">Submit Test</button>
+            <button type="button" class="btn" onclick="resetTest()" style="background: #6c757d;">Reset</button>
+        </form>
+        
+        <div id="results" class="results">
+            <div id="scoreDisplay" class="score"></div>
+            <div id="flashcards" class="flashcards">
+                <h3 style="color: #e74c3c; margin-bottom: 20px;">📚 Study These Flashcards</h3>
+                <div id="flashcardContainer"></div>
+                
+                <div id="nextTestSection" class="next-test-section">
+                    <h3 style="color: white; margin-bottom: 15px;">🎯 Ready for the Next Challenge?</h3>
+                    <button class="next-test-btn" onclick="nextTest()">Take Next Test</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentTest = 1;
+        let jumpScareShown = false;
+        
+        const testData = {
+            1: {
+                title: "Test 1: Biological Bases",
+                description: "Test your knowledge of biological bases of behavior and brain structures",
+                correctAnswers: {
+                    q1: ['a'],
+                    q2: ['a'],
+                    q3: ['b'],
+                    q4: ['a', 'b'],
+                    q5: ['b']
+                },
+                explanations: {
+                    q1: "Broca's area (frontal lobe) handles speech production, while Wernicke's area (temporal lobe) handles language comprehension.",
+                    q2: "Neuroplasticity is the brain's remarkable ability to reorganize and change its structure, essential for learning.",
+                    q3: "The right hemisphere specializes in spatial tasks, musical recognition, and understanding emotional content.",
+                    q4: "The hypothalamus regulates drives like hunger and thirst, while the limbic system handles motivation and emotion.",
+                    q5: "Dopamine is the key neurotransmitter for reinforcement, motivation, and rewarding experiences."
+                },
+                questionTexts: {
+                    q1: "Which brain areas are primarily responsible for language comprehension and production?",
+                    q2: "What is neuroplasticity?",
+                    q3: "Which hemisphere specializes in spatial tasks and emotional content?",
+                    q4: "Which structures are involved in motivation?",
+                    q5: "Which neurotransmitter is primarily involved in reinforcement?"
+                }
+            },
+            2: {
+                title: "Test 2: Memory & Learning",
+                description: "Explore memory systems, learning processes, and cognitive organization",
+                correctAnswers: {
+                    t2q1: ['a'],
+                    t2q2: ['b'],
+                    t2q3: ['a', 'b'],
+                    t2q4: ['b'],
+                    t2q5: ['a']
+                },
+                explanations: {
+                    t2q1: "The hippocampus is crucial for consolidating new memories into long-term storage.",
+                    t2q2: "Working memory, processed in the frontal lobes, temporarily holds and manipulates information.",
+                    t2q3: "Concepts act as 'mental files' to organize experiences and filter new information.",
+                    t2q4: "Priming occurs when exposure to one stimulus influences responses to subsequent stimuli without awareness.",
+                    t2q5: "Neural plasticity allows the brain to reorganize and form new connections, enabling skill acquisition."
+                },
+                questionTexts: {
+                    t2q1: "Which brain structure is most important for long-term memory consolidation?",
+                    t2q2: "What type of memory is stored in the frontal lobes?",
+                    t2q3: "Which cognitive process helps organize experiences?",
+                    t2q4: "What is priming in cognitive psychology?",
+                    t2q5: "What enables the brain to learn new skills?"
+                }
+            },
+            3: {
+                title: "Test 3: Consciousness",
+                description: "Understanding states of consciousness, sleep, and awareness",
+                correctAnswers: {
+                    t3q1: ['b'],
+                    t3q2: ['d'],
+                    t3q3: ['b'],
+                    t3q4: ['d'],
+                    t3q5: ['a', 'b', 'c']
+                },
+                explanations: {
+                    t3q1: "Consciousness is defined as our awareness of both internal thoughts and external environmental stimuli.",
+                    t3q2: "The hypothalamus, pineal gland, and reticular formation all contribute to sleep-wake regulation.",
+                    t3q3: "The pineal gland produces melatonin, which regulates circadian rhythms based on light-dark cycles.",
+                    t3q4: "REM sleep is associated with brain restructuring, memory consolidation, and learning processes.",
+                    t3q5: "Hypnosis, meditation, and flow states are all altered states of consciousness that change perception and cognition."
+                },
+                questionTexts: {
+                    t3q1: "What is consciousness defined as?",
+                    t3q2: "Which brain structure regulates sleep-wake cycles?",
+                    t3q3: "What hormone is produced by the pineal gland?",
+                    t3q4: "Which sleep stage is associated with brain restructuring and learning?",
+                    t3q5: "What characterizes altered states of consciousness?"
+                }
+            },
+            4: {
+                title: "Test 4: Motivation",
+                description: "Cognitive theories of motivation, habits, and self-regulation",
+                correctAnswers: {
+                    t4q1: ['b'],
+                    t4q2: ['b'],
+                    t4q3: ['b'],
+                    t4q4: ['a', 'b', 'c'],
+                    t4q5: ['b']
+                },
+                explanations: {
+                    t4q1: "Cognitive dissonance is the psychological tension from holding conflicting beliefs or acting against beliefs.",
+                    t4q2: "WOOP (Wish, Outcome, Obstacle, Plan) is a cognitive strategy for goal achievement and self-regulation.",
+                    t4q3: "Growth mindset is the belief that abilities can be developed through effort, linked to neuroplasticity.",
+                    t4q4: "Habits form through strengthening associations between cues, routines, and rewards in the brain.",
+                    t4q5: "The prefrontal cortex enables conscious, deliberate self-regulation and habit monitoring."
+                },
+                questionTexts: {
+                    t4q1: "What is cognitive dissonance?",
+                    t4q2: "What does WOOP stand for?",
+                    t4q3: "What is a growth mindset?",
+                    t4q4: "How do habits form?",
+                    t4q5: "What brain region controls top-down self-regulation?"
+                }
+            },
+            5: {
+                title: "Test 5: Integration",
+                description: "How biological bases, cognition, consciousness, and motivation interact",
+                correctAnswers: {
+                    t5q1: ['a', 'b', 'c'],
+                    t5q2: ['b'],
+                    t5q3: ['b'],
+                    t5q4: ['b'],
+                    t5q5: ['b']
+                },
+                explanations: {
+                    t5q1: "Biological states directly impact cognitive abilities through sleep, emotions, and metabolic factors.",
+                    t5q2: "Norepinephrine enhances attention and memory formation for emotionally significant events.",
+                    t5q3: "All psychological domains share biological foundations in brain structures, neurotransmitters, and hormones.",
+                    t5q4: "Flow state integrates focused attention (cognition), intrinsic motivation, and altered consciousness.",
+                    t5q5: "Neuroplasticity, mindset, and habits demonstrate the interconnected nature of all psychological domains."
+                },
+                questionTexts: {
+                    t5q1: "How do biological states affect cognition?",
+                    t5q2: "Which neurotransmitter enhances memory for emotional events?",
+                    t5q3: "What connects motivation, consciousness, and cognition?",
+                    t5q4: "How does the flow state integrate multiple psychological domains?",
+                    t5q5: "What demonstrates the interconnection of all psychological domains?"
+                }
+            }
+        };
+        
+        const testDescriptions = {
+            1: "Test your knowledge of biological bases of behavior and brain structures",
+            2: "Explore memory systems, learning processes, and cognitive organization", 
+            3: "Understanding states of consciousness, sleep, and awareness",
+            4: "Cognitive theories of motivation, habits, and self-regulation",
+            5: "How biological bases, cognition, consciousness, and motivation interact"
+        };
+        
+        function switchTest(testNumber) {
+            // Hide all tests
+            for (let i = 1; i <= 5; i++) {
+                const testElement = document.getElementById(`test${i}`);
+                if (testElement) {
+                    testElement.classList.add('hidden');
+                }
+            }
+            
+            // Show selected test
+            const selectedTest = document.getElementById(`test${testNumber}`);
+            if (selectedTest) {
+                selectedTest.classList.remove('hidden');
+            }
+            
+            // Update active button
+            document.querySelectorAll('.test-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update description
+            document.getElementById('testDescription').textContent = testDescriptions[testNumber];
+            
+            currentTest = testNumber;
+            jumpScareShown = false;
+            
+            // Hide results and reset form
+            document.getElementById('results').style.display = 'none';
+            resetTest();
+        }
+        
+        function showJumpScare() {
+            const jumpScare = document.getElementById('jumpScare');
+            jumpScare.style.display = 'flex';
+            
+            // Play a sound effect if possible
+            try {
+                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1e2+dyMFl');
+            } catch (e) {
+                // Ignore audio errors
+            }
+            
+            setTimeout(() => {
+                jumpScare.style.display = 'none';
+                jumpScareShown = true;
+            }, 2000);
+        }
+        
+        function gradeTest() {
+            const form = document.getElementById('testForm');
+            const formData = new FormData(form);
+            const currentTestData = testData[currentTest];
+            
+            let score = 0;
+            let totalQuestions = Object.keys(currentTestData.correctAnswers).length;
+            let wrongAnswers = [];
+            
+            // Clear previous styling
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                option.style.backgroundColor = '';
+                option.style.borderColor = '';
+            });
+            
+            for (let question in currentTestData.correctAnswers) {
+                let userAnswers = formData.getAll(question);
+                let correctAns = currentTestData.correctAnswers[question];
+                
+                let isCorrect = userAnswers.length === correctAns.length && 
+                               userAnswers.every(ans => correctAns.includes(ans));
+                
+                if (isCorrect) {
+                    score++;
+                    document.querySelectorAll(`input[name="${question}"]:checked`).forEach(input => {
+                        input.closest('.option').classList.add('correct');
+                    });
+                } else {
+                    wrongAnswers.push(question);
+                    document.querySelectorAll(`input[name="${question}"]:checked`).forEach(input => {
+                        input.closest('.option').classList.add('incorrect');
+                    });
+                    correctAns.forEach(ans => {
+                        const correctInput = document.querySelector(`input[name="${question}"][value="${ans}"]`);
+                        if (correctInput && !correctInput.checked) {
+                            correctInput.closest('.option').style.backgroundColor = '#d4edda';
+                            correctInput.closest('.option').style.borderColor = '#27ae60';
+                        }
+                    });
+                }
+            }
+            
+            // Show jump scare before displaying results
+            if (!jumpScareShown) {
+                showJumpScare();
+                
+                setTimeout(() => {
+                    displayResults(score, totalQuestions, wrongAnswers, currentTestData);
+                }, 2500);
+            } else {
+                displayResults(score, totalQuestions, wrongAnswers, currentTestData);
+            }
+        }
+        
+        function displayResults(score, totalQuestions, wrongAnswers, currentTestData) {
+            const percentage = Math.round((score / totalQuestions) * 100);
+            document.getElementById('scoreDisplay').innerHTML = `
+                Your Score: ${score}/${totalQuestions} (${percentage}%)
+                ${percentage >= 80 ? '🎉 Excellent!' : percentage >= 70 ? '👍 Good job!' : percentage >= 60 ? '📚 Keep studying!' : '💪 You can do better!'}
+            `;
+            
+            if (wrongAnswers.length > 0) {
+                generateFlashcards(wrongAnswers, currentTestData);
+                document.getElementById('flashcards').style.display = 'block';
+            } else {
+                document.getElementById('flashcards').style.display = 'none';
+            }
+            
+            // Show next test button if not on last test
+            if (currentTest < 5) {
+                document.getElementById('nextTestSection').style.display = 'block';
+            } else {
+                document.getElementById('nextTestSection').style.display = 'none';
+                document.getElementById('scoreDisplay').innerHTML += '<br><br>🏆 Congratulations! You\'ve completed all tests!';
+            }
+            
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function generateFlashcards(wrongAnswers, currentTestData) {
+            const container = document.getElementById('flashcardContainer');
+            container.innerHTML = '';
+            
+            wrongAnswers.forEach(question => {
+                const flashcard = document.createElement('div');
+                flashcard.className = 'flashcard';
+                
+                const correctAnswerText = currentTestData.correctAnswers[question].map(ans => {
+                    const input = document.querySelector(`input[name="${question}"][value="${ans}"]`);
+                    return input ? input.closest('.option').textContent.trim() : '';
+                }).join(', ');
+                
+                flashcard.innerHTML = `
+                    <h4>Question: ${currentTestData.questionTexts[question]}</h4>
+                    <div class="correct-answer">Correct Answer: ${correctAnswerText}</div>
+                    <div class="explanation">${currentTestData.explanations[question]}</div>
+                `;
+                
+                container.appendChild(flashcard);
+            });
+        }
+        
+        function nextTest() {
+            if (currentTest < 5) {
+                currentTest++;
+                const nextBtn = document.querySelector(`.test-btn:nth-child(${currentTest})`);
+                if (nextBtn) {
+                    nextBtn.click();
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+        
+        function resetTest() {
+            document.getElementById('testForm').reset();
+            document.getElementById('results').style.display = 'none';
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                option.style.backgroundColor = '';
+                option.style.borderColor = '';
+            });
+            jumpScareShown = false;
+        }
+    </script>
+</body>
+</html>
