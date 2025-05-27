@@ -962,7 +962,27 @@
         let testStartTime = null;
 
         // Google Sheets configuration
-        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypGDQiLxCEuYOloi5-eO5dLGoOXpQLxpVuLLEWxkJOk1B9v0jDoXIo3kppr0AFfwS4QA/exec';
+        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8wCsFo3dKVBA7tSSywPaKvSYFE4AM8ppB-7rmG28YrZsrNeXlAasNaFF6DBPfxLZPAg/exec';
+        
+        // Safe storage functions that work in sandboxed environments
+        function safeGetItem(key) {
+            try {
+                return localStorage.getItem(key);
+            } catch (error) {
+                // Fallback to in-memory storage
+                return window.tempStorage?.[key] || null;
+            }
+        }
+        
+        function safeSetItem(key, value) {
+            try {
+                localStorage.setItem(key, value);
+            } catch (error) {
+                // Fallback to in-memory storage
+                if (!window.tempStorage) window.tempStorage = {};
+                window.tempStorage[key] = value;
+            }
+        }
         
         // Function to log data to Google Sheets
         async function logToGoogleSheets(data) {
@@ -972,22 +992,23 @@
                     timestamp: new Date().toISOString()
                 };
                 
-                // Store locally as backup
-                const existingLogs = JSON.parse(localStorage.getItem('testLogs') || '[]');
+                // Store locally as backup (safe method)
+                const existingLogs = JSON.parse(safeGetItem('testLogs') || '[]');
                 existingLogs.push(logEntry);
-                localStorage.setItem('testLogs', JSON.stringify(existingLogs));
+                safeSetItem('testLogs', JSON.stringify(existingLogs));
+                
+                console.log('📊 Sending data to Google Sheets:', logEntry);
                 
                 // Send to Google Sheets via Apps Script
                 const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'text/plain',
                     },
                     body: JSON.stringify(data)
                 });
                 
-                console.log('✅ Test result sent to Google Sheets:', logEntry);
+                console.log('✅ Response from Google Sheets received');
                 
                 // Show success message to user
                 showNotification('📊 Results saved to Google Sheets!', 'success');
@@ -997,7 +1018,7 @@
                 console.log('💾 Data saved locally as backup');
                 
                 // Show backup message to user
-                showNotification('💾 Results saved locally (Google Sheets connection issue)', 'warning');
+                showNotification('💾 Results saved locally (backup)', 'warning');
             }
         }
         
@@ -1949,7 +1970,7 @@
         }
 
         function displayResults() {
-            const logs = JSON.parse(localStorage.getItem('testLogs') || '[]');
+            const logs = JSON.parse(safeGetItem('testLogs') || '[]');
             
             // Generate summary
             const summary = generateSummary(logs);
@@ -2042,7 +2063,7 @@
         }
 
         function exportToCSV() {
-            const logs = JSON.parse(localStorage.getItem('testLogs') || '[]');
+            const logs = JSON.parse(safeGetItem('testLogs') || '[]');
             if (logs.length === 0) {
                 alert('No data to export yet!');
                 return;
