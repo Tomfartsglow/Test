@@ -24,6 +24,237 @@
             padding: 20px;
         }
 
+        /* Login Screen Styles */
+        .login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .login-card p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+        }
+
+        .admin-login {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .admin-login a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .admin-login a:hover {
+            text-decoration: underline;
+        }
+
+        /* Admin Panel Styles */
+        .admin-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            color: white;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .users-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .users-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .users-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .users-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .users-table tr:hover td {
+            background-color: #f8f9fa;
+        }
+
+        .user-details {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .test-result {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .test-result h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        /* User Status Indicator */
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #28a745;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
         .header {
             text-align: center;
             margin-bottom: 30px;
@@ -423,10 +654,79 @@
             background: #667eea;
             color: white;
         }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-card">
+            <h1>🧠 Welcome</h1>
+            <p>Enter your name to access the Biological Psychology Study Platform</p>
+            <div class="form-group">
+                <label for="student-name">Your Name:</label>
+                <input type="text" id="student-name" placeholder="Enter your full name" required>
+            </div>
+            <button class="btn-login" onclick="loginStudent()">Enter Study Platform</button>
+            <div id="login-error" class="error-message hidden"></div>
+            
+            <div class="admin-login">
+                <a onclick="showAdminLogin()">Admin Access</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login -->
+    <div id="admin-login" class="login-screen hidden">
+        <div class="login-card">
+            <h1>🔐 Admin Access</h1>
+            <p>Enter admin credentials to view student results</p>
+            <div class="form-group">
+                <label for="admin-password">Password:</label>
+                <input type="password" id="admin-password" placeholder="Enter admin password">
+            </div>
+            <button class="btn-login" onclick="loginAdmin()">Access Admin Panel</button>
+            <div id="admin-error" class="error-message hidden"></div>
+            <div class="admin-login">
+                <a onclick="showStudentLogin()">Back to Student Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="main-app" class="container hidden">
+        <!-- User Status -->
+        <div class="user-status">
+            <div class="status-indicator"></div>
+            <span>Logged in as: <strong id="current-user"></strong></span>
+            <div style="margin-left: auto;">
+                <span id="session-time">Session time: 00:00</span>
+                <button class="logout-btn" onclick="logout()" style="margin-left: 15px;">Logout</button>
+            </div>
+        </div>
+
         <div class="header">
             <h1>🧠 Biological Psychology Study Platform</h1>
             <p>Master the biological bases of behavior, cognition, consciousness, and motivation</p>
@@ -592,7 +892,6 @@
                                         <th style="padding: 10px; border: 1px solid #ddd;">Associated Disorders</th>
                                     </tr>
                                     <tr>
-                                        <td style="padding: 10px; border: 1px solid #ddd;">Dopamine</td>
                                         <td style="padding: 10px; border: 1px solid #ddd;">Reward, motivation, movement</td>
                                         <td style="padding: 10px; border: 1px solid #ddd;">Parkinson's, addiction</td>
                                     </tr>
@@ -780,7 +1079,307 @@
         </div>
     </div>
 
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="container hidden">
+        <div class="admin-panel">
+            <div class="admin-header">
+                <h1>📊 Admin Dashboard</h1>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-users">0</div>
+                    <div class="stat-label">Total Students</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-tests">0</div>
+                    <div class="stat-label">Tests Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="avg-score">0%</div>
+                    <div class="stat-label">Average Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="active-users">0</div>
+                    <div class="stat-label">Active Today</div>
+                </div>
+            </div>
+
+            <div class="users-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Tests Completed</th>
+                            <th>Average Score</th>
+                            <th>Last Active</th>
+                            <th>Total Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-tbody">
+                        <!-- User data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="user-details" class="user-details hidden">
+                <h3 id="selected-user-name">Student Details</h3>
+                <div id="user-test-results">
+                    <!-- Test results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // User and session management
+        let currentUser = null;
+        let isAdmin = false;
+        let sessionStartTime = null;
+        let sessionTimer = null;
+        let userData = {};
+
+        // Load user data from localStorage
+        function loadUserData() {
+            const saved = localStorage.getItem('studyPlatformUsers');
+            if (saved) {
+                userData = JSON.parse(saved);
+            }
+        }
+
+        // Save user data to localStorage
+        function saveUserData() {
+            localStorage.setItem('studyPlatformUsers', JSON.stringify(userData));
+        }
+
+        // Initialize data on page load
+        loadUserData();
+
+        // Login Functions
+        function loginStudent() {
+            const nameInput = document.getElementById('student-name');
+            const name = nameInput.value.trim();
+            const errorDiv = document.getElementById('login-error');
+            
+            if (!name) {
+                errorDiv.textContent = 'Please enter your name';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            
+            if (name.length < 2) {
+                errorDiv.textContent = 'Please enter your full name';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            
+            currentUser = name;
+            isAdmin = false;
+            sessionStartTime = new Date();
+            
+            // Initialize user data if doesn't exist
+            if (!userData[name]) {
+                userData[name] = {
+                    name: name,
+                    tests: [],
+                    totalTime: 0,
+                    lastActive: new Date().toISOString(),
+                    firstLogin: new Date().toISOString()
+                };
+            } else {
+                userData[name].lastActive = new Date().toISOString();
+            }
+            
+            saveUserData();
+            showMainApp();
+        }
+
+        function showAdminLogin() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('admin-login').classList.remove('hidden');
+        }
+
+        function showStudentLogin() {
+            document.getElementById('admin-login').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+        }
+
+        function loginAdmin() {
+            const passwordInput = document.getElementById('admin-password');
+            const password = passwordInput.value;
+            const errorDiv = document.getElementById('admin-error');
+            
+            if (password !== 'tomtom123') {
+                errorDiv.textContent = 'Incorrect password';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            
+            isAdmin = true;
+            currentUser = 'Admin';
+            sessionStartTime = new Date();
+            showAdminPanel();
+        }
+
+        function showMainApp() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('admin-login').classList.add('hidden');
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            
+            document.getElementById('current-user').textContent = currentUser;
+            startSessionTimer();
+            generateFlashcards();
+        }
+
+        function showAdminPanel() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('admin-login').classList.add('hidden');
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('admin-panel').classList.remove('hidden');
+            
+            startSessionTimer();
+            loadAdminData();
+        }
+
+        function logout() {
+            if (currentUser && !isAdmin && sessionStartTime) {
+                // Update total time for student
+                const sessionTime = (new Date() - sessionStartTime) / 1000; // in seconds
+                if (userData[currentUser]) {
+                    userData[currentUser].totalTime += sessionTime;
+                    saveUserData();
+                }
+            }
+            
+            currentUser = null;
+            isAdmin = false;
+            sessionStartTime = null;
+            if (sessionTimer) {
+                clearInterval(sessionTimer);
+                sessionTimer = null;
+            }
+            
+            // Reset all screens
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.getElementById('admin-login').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            
+            // Clear form inputs
+            document.getElementById('student-name').value = '';
+            document.getElementById('admin-password').value = '';
+            document.getElementById('login-error').classList.add('hidden');
+            document.getElementById('admin-error').classList.add('hidden');
+        }
+
+        function startSessionTimer() {
+            if (sessionTimer) clearInterval(sessionTimer);
+            
+            sessionTimer = setInterval(() => {
+                if (sessionStartTime) {
+                    const elapsed = new Date() - sessionStartTime;
+                    const minutes = Math.floor(elapsed / 60000);
+                    const seconds = Math.floor((elapsed % 60000) / 1000);
+                    document.getElementById('session-time').textContent = 
+                        `Session time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        // Admin Panel Functions
+        function loadAdminData() {
+            const users = Object.values(userData);
+            const totalUsers = users.length;
+            const totalTests = users.reduce((sum, user) => sum + user.tests.length, 0);
+            const allScores = users.flatMap(user => user.tests.map(test => test.percentage));
+            const avgScore = allScores.length > 0 ? Math.round(allScores.reduce((sum, score) => sum + score, 0) / allScores.length) : 0;
+            const today = new Date().toDateString();
+            const activeToday = users.filter(user => new Date(user.lastActive).toDateString() === today).length;
+
+            document.getElementById('total-users').textContent = totalUsers;
+            document.getElementById('total-tests').textContent = totalTests;
+            document.getElementById('avg-score').textContent = avgScore + '%';
+            document.getElementById('active-users').textContent = activeToday;
+
+            // Populate users table
+            const tbody = document.getElementById('users-tbody');
+            tbody.innerHTML = '';
+            
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                const avgUserScore = user.tests.length > 0 ? 
+                    Math.round(user.tests.reduce((sum, test) => sum + test.percentage, 0) / user.tests.length) : 0;
+                const totalTimeFormatted = formatTime(user.totalTime);
+                
+                row.innerHTML = `
+                    <td>${user.name}</td>
+                    <td>${user.tests.length}</td>
+                    <td>${avgUserScore}%</td>
+                    <td>${new Date(user.lastActive).toLocaleDateString()}</td>
+                    <td>${totalTimeFormatted}</td>
+                `;
+                row.onclick = () => showUserDetails(user);
+                tbody.appendChild(row);
+            });
+        }
+
+        function showUserDetails(user) {
+            const detailsDiv = document.getElementById('user-details');
+            const nameDiv = document.getElementById('selected-user-name');
+            const resultsDiv = document.getElementById('user-test-results');
+            
+            nameDiv.textContent = `${user.name} - Test Results`;
+            
+            if (user.tests.length === 0) {
+                resultsDiv.innerHTML = '<p>No tests completed yet.</p>';
+            } else {
+                resultsDiv.innerHTML = user.tests.map(test => `
+                    <div class="test-result">
+                        <h4>${getTestTitle(test.testType)}</h4>
+                        <div class="result-details">
+                            <div><strong>Score:</strong> ${test.score}/${test.totalQuestions}</div>
+                            <div><strong>Percentage:</strong> ${test.percentage}%</div>
+                            <div><strong>Grade:</strong> ${test.grade}</div>
+                            <div><strong>Date:</strong> ${new Date(test.completedAt).toLocaleDateString()}</div>
+                            <div><strong>Time:</strong> ${new Date(test.completedAt).toLocaleTimeString()}</div>
+                            <div><strong>Duration:</strong> ${formatTime(test.timeSpent)}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            detailsDiv.classList.remove('hidden');
+        }
+
+        function getTestTitle(testType) {
+            const titles = {
+                'brain-parts': '🧠 Brain Parts & Structures',
+                'brain-functions': '⚡ Brain Functions',
+                'neurotransmitters': '🔬 Neurotransmitters & Chemicals',
+                'consciousness': '💭 States of Consciousness',
+                'motivation': '🎯 Motivation & Drives',
+                'cognition': '🤔 Cognition & Mental Processes',
+                'comprehensive': '🏆 Comprehensive Final Exam'
+            };
+            return titles[testType] || testType;
+        }
+
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            
+            if (hours > 0) {
+                return `${hours}h ${minutes}m ${secs}s`;
+            } else if (minutes > 0) {
+                return `${minutes}m ${secs}s`;
+            } else {
+                return `${secs}s`;
+            }
+        }
+
         // Test Data
         const testData = {
             'brain-parts': [
@@ -813,24 +1412,6 @@
                     options: ["Motor cortex", "Sensory cortex", "Visual cortex", "Auditory cortex"],
                     correct: 0,
                     explanation: "The motor cortex in the frontal lobe initiates voluntary movements."
-                },
-                {
-                    question: "Broca's area is located in which lobe and is responsible for:",
-                    options: ["Temporal; hearing", "Frontal; speech production", "Parietal; touch", "Occipital; vision"],
-                    correct: 1,
-                    explanation: "Broca's area in the frontal lobe is crucial for speech production and language formation."
-                },
-                {
-                    question: "The reticular formation is primarily responsible for:",
-                    options: ["Memory formation", "Sleep-wake cycles", "Emotional processing", "Visual perception"],
-                    correct: 1,
-                    explanation: "The reticular formation regulates arousal, sleep, and wakefulness."
-                },
-                {
-                    question: "Which gland produces melatonin?",
-                    options: ["Pituitary", "Thyroid", "Pineal", "Adrenal"],
-                    correct: 2,
-                    explanation: "The pineal gland produces melatonin, which regulates circadian rhythms."
                 }
             ],
             'brain-functions': [
@@ -851,36 +1432,6 @@
                     options: ["Spatial tasks", "Musical recognition", "Language and verbal processing", "Emotional content"],
                     correct: 2,
                     explanation: "The left hemisphere specializes in language, verbal processing, and analytical thinking."
-                },
-                {
-                    question: "Split-brain studies involve patients who have had:",
-                    options: ["Frontal lobotomy", "Corpus callosum severed", "Hippocampus removed", "Temporal lobe damaged"],
-                    correct: 1,
-                    explanation: "Split-brain patients have had their corpus callosum severed, preventing hemisphere communication."
-                },
-                {
-                    question: "The right hemisphere excels at:",
-                    options: ["Reading and writing", "Mathematical calculations", "Pattern recognition and spatial tasks", "Logical reasoning"],
-                    correct: 2,
-                    explanation: "The right hemisphere specializes in spatial processing, pattern recognition, and holistic thinking."
-                },
-                {
-                    question: "What would likely happen with damage to Wernicke's area?",
-                    options: ["Loss of motor control", "Difficulty understanding language", "Visual impairment", "Memory loss"],
-                    correct: 1,
-                    explanation: "Wernicke's area damage causes difficulty understanding and comprehending language."
-                },
-                {
-                    question: "The somatosensory cortex processes:",
-                    options: ["Visual information", "Auditory information", "Touch and bodily sensations", "Smell and taste"],
-                    correct: 2,
-                    explanation: "The somatosensory cortex in the parietal lobe processes touch and bodily sensations."
-                },
-                {
-                    question: "EEG measures:",
-                    options: ["Blood flow", "Brain structure", "Electrical activity", "Chemical composition"],
-                    correct: 2,
-                    explanation: "EEG (electroencephalogram) records the brain's electrical activity."
                 }
             ],
             'neurotransmitters': [
@@ -891,46 +1442,10 @@
                     explanation: "Dopamine is involved in reward, motivation, and the reinforcing effects of various experiences."
                 },
                 {
-                    question: "Norepinephrine (NE) enhances:",
-                    options: ["Sleep quality", "Attention and memory for emotional events", "Digestive processes", "Vision"],
-                    correct: 1,
-                    explanation: "Norepinephrine enhances attention and memory, especially for emotionally charged events."
-                },
-                {
-                    question: "Endorphins are the body's natural:",
-                    options: ["Stimulants", "Painkillers", "Sleep aids", "Appetite suppressants"],
-                    correct: 1,
-                    explanation: "Endorphins are opioid peptides that modulate pain and pleasure, acting as natural painkillers."
-                },
-                {
                     question: "Which neurotransmitter is most associated with depression when deficient?",
                     options: ["Dopamine", "GABA", "Serotonin", "Acetylcholine"],
                     correct: 2,
                     explanation: "Serotonin deficiency is commonly linked to depression and mood disorders."
-                },
-                {
-                    question: "GABA is the brain's primary:",
-                    options: ["Excitatory neurotransmitter", "Inhibitory neurotransmitter", "Memory neurotransmitter", "Motor neurotransmitter"],
-                    correct: 1,
-                    explanation: "GABA is the brain's main inhibitory neurotransmitter, helping to calm neural activity."
-                },
-                {
-                    question: "Neural transmission is:",
-                    options: ["Only electrical", "Only chemical", "Both electrochemical", "Neither electrical nor chemical"],
-                    correct: 2,
-                    explanation: "Neural transmission involves both electrical signals within neurons and chemical signals between neurons."
-                },
-                {
-                    question: "Which system works with the nervous system to influence motivation through hormones?",
-                    options: ["Digestive system", "Respiratory system", "Endocrine system", "Circulatory system"],
-                    correct: 2,
-                    explanation: "The endocrine system releases hormones that interact with the nervous system to influence behavior and motivation."
-                },
-                {
-                    question: "Acetylcholine is important for:",
-                    options: ["Muscle movement and memory", "Sleep and dreams", "Pain perception", "Emotional regulation"],
-                    correct: 0,
-                    explanation: "Acetylcholine is crucial for muscle movement and plays a role in learning and memory."
                 }
             ],
             'consciousness': [
@@ -945,42 +1460,6 @@
                     options: ["Physical rest", "Brain restructuring and learning", "Temperature regulation", "Hormone production"],
                     correct: 1,
                     explanation: "REM sleep is associated with brain restructuring, memory consolidation, and learning."
-                },
-                {
-                    question: "Implicit cognitive processes operate:",
-                    options: ["With full awareness", "Without conscious awareness", "Only during sleep", "Only in children"],
-                    correct: 1,
-                    explanation: "Implicit processes like priming occur without our conscious awareness but still influence behavior."
-                },
-                {
-                    question: "The 'flow state' is characterized by:",
-                    options: ["Extreme relaxation", "Focused attention on goals", "Altered perception of time", "Both B and C"],
-                    correct: 3,
-                    explanation: "Flow involves focused attention on activities with altered time perception and optimal performance."
-                },
-                {
-                    question: "Circadian rhythms are controlled by:",
-                    options: ["Light-dark cycles", "Temperature changes", "Social cues", "All of the above"],
-                    correct: 3,
-                    explanation: "Circadian rhythms are influenced by light-dark cycles, temperature, and social cues."
-                },
-                {
-                    question: "Priming is an example of:",
-                    options: ["Explicit memory", "Implicit influence", "Conscious decision-making", "Sleep learning"],
-                    correct: 1,
-                    explanation: "Priming shows how exposure to stimuli can unconsciously influence later responses."
-                },
-                {
-                    question: "Altered states of consciousness can be achieved through:",
-                    options: ["Meditation", "Hypnosis", "Certain drugs", "All of the above"],
-                    correct: 3,
-                    explanation: "Various methods including meditation, hypnosis, and substances can alter consciousness."
-                },
-                {
-                    question: "Sleep deprivation primarily affects:",
-                    options: ["Physical strength", "Attention and memory", "Digestive processes", "Vision"],
-                    correct: 1,
-                    explanation: "Sleep deprivation significantly impairs attention, memory, and other cognitive functions."
                 }
             ],
             'motivation': [
@@ -991,46 +1470,10 @@
                     explanation: "The hypothalamus controls basic drives including hunger, thirst, and sexual desire."
                 },
                 {
-                    question: "Cognitive dissonance theory suggests people are motivated to:",
-                    options: ["Seek new experiences", "Keep thoughts and behaviors consistent", "Avoid all conflicts", "Maximize pleasure"],
-                    correct: 1,
-                    explanation: "Cognitive dissonance creates tension when beliefs and behaviors conflict, motivating consistency."
-                },
-                {
-                    question: "A growth mindset involves believing that:",
-                    options: ["Abilities are fixed", "Intelligence cannot change", "Abilities can be developed", "Effort is pointless"],
-                    correct: 2,
-                    explanation: "Growth mindset is the belief that abilities and intelligence can be developed through effort."
-                },
-                {
                     question: "Intrinsic motivation comes from:",
                     options: ["External rewards", "Internal satisfaction", "Social pressure", "Fear of punishment"],
                     correct: 1,
                     explanation: "Intrinsic motivation is driven by internal satisfaction and personal fulfillment."
-                },
-                {
-                    question: "The WOOP strategy involves:",
-                    options: ["Wish, Outcome, Obstacle, Plan", "Work, Organize, Optimize, Practice", "Wonder, Observe, Order, Perform", "Wait, Open, Operate, Progress"],
-                    correct: 0,
-                    explanation: "WOOP stands for Wish, Outcome, Obstacle, Plan - a goal-setting and self-regulation strategy."
-                },
-                {
-                    question: "Habit formation involves strengthening associations between:",
-                    options: ["Thoughts and feelings", "Cue, routine, and reward", "Past and future", "Self and others"],
-                    correct: 1,
-                    explanation: "Habits develop through the cue-routine-reward loop that gets strengthened over time."
-                },
-                {
-                    question: "Achievement motivation focuses on:",
-                    options: ["Avoiding failure", "Learning vs. performance goals", "Social approval", "Material rewards"],
-                    correct: 1,
-                    explanation: "Achievement motivation involves choosing between learning-focused and performance-focused goals."
-                },
-                {
-                    question: "Self-regulation is controlled by the:",
-                    options: ["Limbic system", "Cerebellum", "Prefrontal cortex", "Brain stem"],
-                    correct: 2,
-                    explanation: "The prefrontal cortex enables conscious self-regulation and top-down control of behavior."
                 }
             ],
             'cognition': [
@@ -1041,50 +1484,13 @@
                     explanation: "Cognition encompasses all mental processes including thinking, memory, attention, and communication."
                 },
                 {
-                    question: "Concepts act as:",
-                    options: ["Mental files to organize experiences", "Barriers to learning", "Emotional responses", "Physical movements"],
-                    correct: 0,
-                    explanation: "Concepts serve as mental files that help organize our experiences and filter new information."
-                },
-                {
                     question: "Working memory is primarily associated with the:",
                     options: ["Occipital lobe", "Temporal lobe", "Frontal lobe", "Parietal lobe"],
                     correct: 2,
                     explanation: "Working memory, the ability to hold and manipulate information, is linked to the frontal lobes."
-                },
-                {
-                    question: "The mere exposure effect shows that people prefer:",
-                    options: ["Novel stimuli", "Previously exposed stimuli", "Complex stimuli", "Colorful stimuli"],
-                    correct: 1,
-                    explanation: "Mere exposure effect demonstrates that people tend to prefer things they've been exposed to before."
-                },
-                {
-                    question: "Incentive theory explains how environmental stimuli can control:",
-                    options: ["Automatic responses", "Approach behavior ('wanting')", "Sleep patterns", "Memory formation"],
-                    correct: 1,
-                    explanation: "Incentive theory shows how learned environmental cues can trigger approach behaviors and 'wanting'."
-                },
-                {
-                    question: "Behavioral genetics studies:",
-                    options: ["Animal behavior only", "The role of heredity in mental ability", "Learning in children", "Social influences"],
-                    correct: 1,
-                    explanation: "Behavioral genetics examines how heredity influences intelligence and mental abilities."
-                },
-                {
-                    question: "Information processing in cognition involves:",
-                    options: ["Only input", "Only output", "Input, processing, and output", "Random neural firing"],
-                    correct: 2,
-                    explanation: "Cognitive information processing involves receiving input, processing it, and producing output."
-                },
-                {
-                    question: "Attention can be:",
-                    options: ["Only focused", "Only divided", "Both focused and divided", "Neither focused nor divided"],
-                    correct: 2,
-                    explanation: "Attention can be both focused (selective attention) and divided (multitasking), though with limitations."
                 }
             ],
             'comprehensive': [
-                // Brain Parts & Structures
                 {
                     question: "The hippocampus is primarily involved in:",
                     options: ["Motor control", "Memory consolidation and spatial learning", "Visual processing", "Language production"],
@@ -1092,125 +1498,16 @@
                     explanation: "The hippocampus is crucial for forming new memories and spatial navigation."
                 },
                 {
-                    question: "Which brain structure regulates sleep-wake cycles?",
-                    options: ["Cerebellum", "Reticular formation", "Corpus callosum", "Amygdala"],
-                    correct: 1,
-                    explanation: "The reticular formation in the brainstem controls arousal and sleep-wake cycles."
-                },
-                // Brain Functions
-                {
-                    question: "Neuroplasticity allows the brain to:",
-                    options: ["Remain unchanged", "Reorganize and adapt", "Only function in childhood", "Prevent all damage"],
-                    correct: 1,
-                    explanation: "Neuroplasticity is the brain's ability to reorganize and change throughout life."
-                },
-                {
-                    question: "Damage to Broca's area would most likely result in:",
-                    options: ["Memory loss", "Difficulty producing speech", "Visual impairment", "Hearing problems"],
-                    correct: 1,
-                    explanation: "Broca's area damage causes difficulty in speech production and language formation."
-                },
-                // Neurotransmitters
-                {
                     question: "Dopamine is most associated with:",
                     options: ["Sleep regulation", "Reward and motivation", "Pain relief", "Temperature control"],
                     correct: 1,
                     explanation: "Dopamine is the key neurotransmitter in reward, motivation, and pleasure systems."
                 },
                 {
-                    question: "Endorphins function as the body's natural:",
-                    options: ["Stimulants", "Painkillers", "Sedatives", "Appetite suppressants"],
-                    correct: 1,
-                    explanation: "Endorphins are natural opioids that reduce pain and can create feelings of pleasure."
-                },
-                // Consciousness
-                {
                     question: "REM sleep is particularly important for:",
                     options: ["Physical recovery", "Memory consolidation and learning", "Temperature regulation", "Immune function"],
                     correct: 1,
                     explanation: "REM sleep is crucial for memory consolidation, learning, and brain development."
-                },
-                {
-                    question: "Implicit cognitive processes:",
-                    options: ["Require conscious awareness", "Operate without awareness", "Only occur during sleep", "Are always accurate"],
-                    correct: 1,
-                    explanation: "Implicit processes like priming occur automatically without conscious awareness."
-                },
-                // Motivation
-                {
-                    question: "The hypothalamus primarily controls:",
-                    options: ["Language", "Basic drives like hunger and thirst", "Memory formation", "Motor coordination"],
-                    correct: 1,
-                    explanation: "The hypothalamus regulates fundamental drives including hunger, thirst, and sexual behavior."
-                },
-                {
-                    question: "Cognitive dissonance occurs when:",
-                    options: ["We learn something new", "Our beliefs and behaviors conflict", "We feel happy", "We solve problems"],
-                    correct: 1,
-                    explanation: "Cognitive dissonance is the uncomfortable tension when beliefs and behaviors are inconsistent."
-                },
-                // Cognition
-                {
-                    question: "Working memory is primarily associated with the:",
-                    options: ["Hippocampus", "Frontal lobes", "Occipital lobe", "Cerebellum"],
-                    correct: 1,
-                    explanation: "Working memory, which temporarily holds and manipulates information, is linked to the frontal lobes."
-                },
-                {
-                    question: "The left hemisphere typically specializes in:",
-                    options: ["Spatial tasks", "Emotional processing", "Language and analytical thinking", "Musical recognition"],
-                    correct: 2,
-                    explanation: "The left hemisphere is dominant for language, verbal processing, and analytical thinking."
-                },
-                // Integration Questions
-                {
-                    question: "How do biological bases, consciousness, and motivation interact?",
-                    options: ["They operate independently", "Brain structures influence consciousness and motivation", "Only consciousness affects the others", "They only interact during sleep"],
-                    correct: 1,
-                    explanation: "Brain structures and neurotransmitters influence both consciousness states and motivational drives."
-                },
-                {
-                    question: "Sleep deprivation primarily affects:",
-                    options: ["Only physical health", "Cognitive functions like attention and memory", "Only emotional regulation", "Motor skills exclusively"],
-                    correct: 1,
-                    explanation: "Sleep deprivation significantly impairs cognitive functions including attention, memory, and decision-making."
-                },
-                {
-                    question: "The limbic system integrates:",
-                    options: ["Only memory", "Emotion, memory, and motivation", "Only sensory information", "Only motor control"],
-                    correct: 1,
-                    explanation: "The limbic system is crucial for integrating emotional, memory, and motivational processes."
-                },
-                // Advanced Integration
-                {
-                    question: "Growth mindset and neuroplasticity are connected because:",
-                    options: ["They're unrelated concepts", "Both involve the brain's ability to change", "They only apply to children", "They prevent all learning difficulties"],
-                    correct: 1,
-                    explanation: "Growth mindset relies on understanding that the brain can change and develop through effort (neuroplasticity)."
-                },
-                {
-                    question: "The relationship between neurotransmitters and behavior shows that:",
-                    options: ["Chemistry has no effect on behavior", "Brain chemistry significantly influences behavior", "Only genetics matter", "Behavior is purely environmental"],
-                    correct: 1,
-                    explanation: "Neurotransmitters like dopamine, serotonin, and norepinephrine significantly influence behavior and mental states."
-                },
-                {
-                    question: "Flow state demonstrates the connection between:",
-                    options: ["Consciousness and motivation", "Only attention", "Only happiness", "Sleep and dreams"],
-                    correct: 0,
-                    explanation: "Flow state shows how focused consciousness and intrinsic motivation can create optimal performance."
-                },
-                {
-                    question: "The biopsychological approach suggests that behavior results from:",
-                    options: ["Only biological factors", "Only psychological factors", "The interaction of biological and psychological factors", "Random chance"],
-                    correct: 2,
-                    explanation: "The biopsychological approach emphasizes that behavior emerges from the complex interaction of biological and psychological factors."
-                },
-                {
-                    question: "Habit formation involves both:",
-                    options: ["Conscious and unconscious processes", "Only conscious control", "Only automatic responses", "Neither conscious nor unconscious"],
-                    correct: 0,
-                    explanation: "Habits involve automatic subcortical processes but can be modified through conscious prefrontal cortex regulation."
                 }
             ]
         };
@@ -1226,355 +1523,5 @@
                 front: "Amygdala",
                 back: "Emotional processing, especially fear",
                 memoryTip: "Amygdala sounds like 'alarm' - processes emotional responses"
-            },
-            {
-                front: "Dopamine",
-                back: "Reward, motivation, and pleasure neurotransmitter",
-                memoryTip: "Dopamine drives motivation - think 'dope' for reward feelings"
-            },
-            {
-                front: "Frontal Lobe",
-                back: "Executive functions, planning, personality, motor control",
-                memoryTip: "Located at the front - handles executive decision-making"
-            },
-            {
-                front: "Occipital Lobe",
-                back: "Visual processing and sight",
-                memoryTip: "Occipital = optical processing in the back of the brain"
-            },
-            {
-                front: "Thalamus",
-                back: "Sensory relay station",
-                memoryTip: "All sensory info passes through the thalamus first"
-            },
-            {
-                front: "Cerebellum",
-                back: "Balance, coordination, motor learning",
-                memoryTip: "Cerebellum = 'little brain' that fine-tunes movement"
-            },
-            {
-                front: "Hypothalamus",
-                back: "Regulates hunger, thirst, temperature, hormones",
-                memoryTip: "Hypo = below; controls homeostasis and basic drives"
-            },
-            {
-                front: "Broca's Area",
-                back: "Speech production and language formation",
-                memoryTip: "Broca = broken speech when damaged (production problems)"
-            },
-            {
-                front: "Wernicke's Area",
-                back: "Language comprehension and understanding",
-                memoryTip: "Wernicke damage = word salad (comprehension problems)"
-            },
-            {
-                front: "Serotonin",
-                back: "Mood regulation, happiness, sleep",
-                memoryTip: "Serotonin = serenity and stable mood regulation"
-            },
-            {
-                front: "Norepinephrine",
-                back: "Alertness, attention, arousal (fight-or-flight)",
-                memoryTip: "Norepinephrine = adrenaline-like, increases alertness"
-            },
-            {
-                front: "GABA",
-                back: "Main inhibitory neurotransmitter (calming)",
-                memoryTip: "GABA = brain's primary 'off switch' for neural activity"
-            },
-            {
-                front: "Acetylcholine",
-                back: "Muscle movement and memory",
-                memoryTip: "ACh = action (movement) and attention (memory)"
-            },
-            {
-                front: "REM Sleep",
-                back: "Rapid Eye Movement sleep; important for memory consolidation",
-                memoryTip: "REM = dreams and memory processing during rapid eye movements"
-            },
-            {
-                front: "Neuroplasticity",
-                back: "Brain's ability to change and reorganize",
-                memoryTip: "Neural plasticity = brain can be molded throughout life"
-            },
-            {
-                front: "Corpus Callosum",
-                back: "Connects left and right brain hemispheres",
-                memoryTip: "Corpus = body connecting the two brain halves"
-            },
-            {
-                front: "Limbic System",
-                back: "Emotion, memory, and motivation center",
-                memoryTip: "Limbic = emotional and memory processing hub"
-            },
-            {
-                front: "Reticular Formation",
-                back: "Controls sleep-wake cycles and arousal",
-                memoryTip: "Reticular = network controlling consciousness levels"
-            },
-            {
-                front: "Endorphins",
-                back: "Natural painkillers and mood elevators",
-                memoryTip: "Endorphins = endogenous morphine produced by the body"
-            },
-            {
-                front: "Cognitive Dissonance",
-                back: "Tension from conflicting beliefs or behaviors",
-                memoryTip: "Mental discomfort when actions don't match beliefs"
-            },
-            {
-                front: "Growth Mindset",
-                back: "Belief that abilities can be developed through effort",
-                memoryTip: "Growth mindset = believing intelligence can be developed"
-            },
-            {
-                front: "Flow State",
-                back: "Optimal performance state with focused attention",
-                memoryTip: "Flow = complete absorption in activity with optimal performance"
-            },
-            {
-                front: "Working Memory",
-                back: "Temporary storage and manipulation of information",
-                memoryTip: "Working memory = mental workspace for active information"
-            }
-        ];
-
-        // Current test state
-        let currentTest = null;
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let userAnswers = [];
-        let testQuestions = [];
-
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', function() {
-            generateFlashcards();
-        });
-
-        // Tab switching
-        function showTab(tabName) {
-            // Update tab buttons
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // Update content
-            document.querySelectorAll('.content > div').forEach(content => content.classList.add('hidden'));
-            document.getElementById(tabName + '-content').classList.remove('hidden');
-        }
-
-        // Study category switching
-        function showStudyCategory(category) {
-            // Update category buttons
-            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // Hide all sections
-            document.getElementById('flashcards-section').classList.add('hidden');
-            document.getElementById('videos-section').classList.add('hidden');
-            document.getElementById('notes-section').classList.add('hidden');
-            document.getElementById('diagrams-section').classList.add('hidden');
-            document.getElementById('mnemonics-section').classList.add('hidden');
-
-            // Show selected section
-            document.getElementById(category + '-section').classList.remove('hidden');
-        }
-
-        // Generate flashcards
-        function generateFlashcards() {
-            const container = document.getElementById('flashcard-container');
-            container.innerHTML = '';
-
-            flashcardData.forEach((card, index) => {
-                const flashcardDiv = document.createElement('div');
-                flashcardDiv.className = 'flashcard';
-                flashcardDiv.onclick = () => flipCard(index);
-                
-                flashcardDiv.innerHTML = `
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <h3>${card.front}</h3>
-                            <p>Click to reveal answer</p>
-                        </div>
-                        <div class="flashcard-back">
-                            <h3>${card.back}</h3>
-                            <div class="memory-tip">
-                                💡 ${card.memoryTip}
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(flashcardDiv);
-            });
-        }
-
-        // Flip flashcard
-        function flipCard(index) {
-            const flashcards = document.querySelectorAll('.flashcard');
-            flashcards[index].classList.toggle('flipped');
-        }
-
-        // Start a test
-        function startTest(testType) {
-            currentTest = testType;
-            currentQuestionIndex = 0;
-            score = 0;
-            userAnswers = [];
-            testQuestions = [...testData[testType]];
-            
-            // Shuffle questions for variety
-            testQuestions = testQuestions.sort(() => Math.random() - 0.5);
-            
-            document.getElementById('test-menu').classList.add('hidden');
-            document.getElementById('test-interface').classList.remove('hidden');
-            
-            showQuestion();
-        }
-
-        // Display current question
-        function showQuestion() {
-            const question = testQuestions[currentQuestionIndex];
-            const questionArea = document.getElementById('question-area');
-            
-            questionArea.innerHTML = `
-                <div class="question-container">
-                    <div class="question">
-                        Question ${currentQuestionIndex + 1} of ${testQuestions.length}
-                    </div>
-                    <div class="question">
-                        ${question.question}
-                    </div>
-                    <div class="options">
-                        ${question.options.map((option, index) => `
-                            <div class="option" onclick="selectOption(${index})">
-                                ${option}
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            
-            updateProgress();
-            updateScore();
-            
-            // Reset next button
-            const nextBtn = document.getElementById('next-btn');
-            nextBtn.textContent = currentQuestionIndex === testQuestions.length - 1 ? 'Finish Test' : 'Next Question';
-            nextBtn.style.display = 'none';
-        }
-
-        // Select an option
-        function selectOption(optionIndex) {
-            const options = document.querySelectorAll('.option');
-            const question = testQuestions[currentQuestionIndex];
-            
-            // Remove previous selections
-            options.forEach(option => {
-                option.classList.remove('selected', 'correct', 'incorrect');
-            });
-            
-            // Mark selected option
-            options[optionIndex].classList.add('selected');
-            
-            // Show correct answer
-            setTimeout(() => {
-                options[question.correct].classList.add('correct');
-                if (optionIndex !== question.correct) {
-                    options[optionIndex].classList.add('incorrect');
-                }
-                
-                // Show explanation
-                const explanation = document.createElement('div');
-                explanation.style.marginTop = '20px';
-                explanation.style.padding = '15px';
-                explanation.style.backgroundColor = '#f8f9fa';
-                explanation.style.borderRadius = '10px';
-                explanation.innerHTML = `<strong>Explanation:</strong> ${question.explanation}`;
-                document.querySelector('.question-container').appendChild(explanation);
-                
-                // Show next button
-                document.getElementById('next-btn').style.display = 'block';
-                
-                // Update score
-                if (optionIndex === question.correct) {
-                    score++;
-                }
-                userAnswers.push(optionIndex);
-                updateScore();
-            }, 500);
-        }
-
-        // Next question
-        function nextQuestion() {
-            if (currentQuestionIndex < testQuestions.length - 1) {
-                currentQuestionIndex++;
-                showQuestion();
-            } else {
-                finishTest();
-            }
-        }
-
-        // Finish test
-        function finishTest() {
-            const percentage = Math.round((score / testQuestions.length) * 100);
-            let grade, message;
-            
-            if (percentage >= 90) {
-                grade = 'A';
-                message = 'Excellent! You have mastered this topic! 🎉';
-            } else if (percentage >= 80) {
-                grade = 'B';
-                message = 'Great job! You have a solid understanding! 👍';
-            } else if (percentage >= 70) {
-                grade = 'C';
-                message = 'Good work! Review the study materials to improve. 📚';
-            } else if (percentage >= 60) {
-                grade = 'D';
-                message = 'You\'re getting there! More study needed. 💪';
-            } else {
-                grade = 'F';
-                message = 'Keep studying! Use the flashcards and videos. 📖';
-            }
-            
-            document.getElementById('question-area').innerHTML = `
-                <div style="text-align: center; padding: 40px;">
-                    <h2>Test Complete!</h2>
-                    <div style="font-size: 4rem; margin: 20px 0;">${grade}</div>
-                    <div style="font-size: 2rem; margin: 20px 0; color: #667eea;">
-                        ${score}/${testQuestions.length} (${percentage}%)
-                    </div>
-                    <p style="font-size: 1.2rem; margin: 20px 0;">${message}</p>
-                    <div style="margin-top: 30px;">
-                        <button class="btn btn-primary" onclick="startTest('${currentTest}')" style="margin: 0 10px;">
-                            Retake Test
-                        </button>
-                        <button class="btn btn-secondary" onclick="backToMenu()" style="margin: 0 10px;">
-                            Back to Menu
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('next-btn').style.display = 'none';
-        }
-
-        // Update progress bar
-        function updateProgress() {
-            const progress = ((currentQuestionIndex + 1) / testQuestions.length) * 100;
-            document.getElementById('progress').style.width = progress + '%';
-        }
-
-        // Update score display
-        function updateScore() {
-            document.getElementById('score-display').textContent = `Score: ${score}/${testQuestions.length}`;
-        }
-
-        // Back to test menu
-        function backToMenu() {
-            document.getElementById('test-menu').classList.remove('hidden');
-            document.getElementById('test-interface').classList.add('hidden');
-            currentTest = null;
-        }
-    </script>
-</body>
-</html>
+            },d #ddd;">Dopamine</td>
+                                        <td style="padding: 10px; border: 1px soli
