@@ -1523,5 +1523,293 @@
                 front: "Amygdala",
                 back: "Emotional processing, especially fear",
                 memoryTip: "Amygdala sounds like 'alarm' - processes emotional responses"
-            },d #ddd;">Dopamine</td>
+            },
+            {
+                front: "Dopamine",
+                back: "Reward, motivation, and pleasure neurotransmitter",
+                memoryTip: "Dopamine drives motivation - think 'dope' for reward feelings"
+            },
+            {
+                front: "Frontal Lobe",
+                back: "Executive functions, planning, personality, motor control",
+                memoryTip: "Located at the front - handles executive decision-making"
+            },
+            {
+                front: "Occipital Lobe",
+                back: "Visual processing and sight",
+                memoryTip: "Occipital = optical processing in the back of the brain"
+            }
+        ];
+
+        // Current test state
+        let currentTest = null;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let testQuestions = [];
+        let testStartTime = null;
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // App initializes with login screen visible
+        });
+
+        // Tab switching
+        function showTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.content > div').forEach(content => content.classList.add('hidden'));
+            document.getElementById(tabName + '-content').classList.remove('hidden');
+        }
+
+        // Study category switching
+        function showStudyCategory(category) {
+            // Update category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Hide all sections
+            document.getElementById('flashcards-section').classList.add('hidden');
+            document.getElementById('videos-section').classList.add('hidden');
+            document.getElementById('notes-section').classList.add('hidden');
+            document.getElementById('diagrams-section').classList.add('hidden');
+            document.getElementById('mnemonics-section').classList.add('hidden');
+
+            // Show selected section
+            document.getElementById(category + '-section').classList.remove('hidden');
+        }
+
+        // Generate flashcards
+        function generateFlashcards() {
+            const container = document.getElementById('flashcard-container');
+            container.innerHTML = '';
+
+            flashcardData.forEach((card, index) => {
+                const flashcardDiv = document.createElement('div');
+                flashcardDiv.className = 'flashcard';
+                flashcardDiv.onclick = () => flipCard(index);
+                
+                flashcardDiv.innerHTML = `
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <h3>${card.front}</h3>
+                            <p>Click to reveal answer</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <h3>${card.back}</h3>
+                            <div class="memory-tip">
+                                💡 ${card.memoryTip}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(flashcardDiv);
+            });
+        }
+
+        // Flip flashcard
+        function flipCard(index) {
+            const flashcards = document.querySelectorAll('.flashcard');
+            flashcards[index].classList.toggle('flipped');
+        }
+
+        // Start a test
+        function startTest(testType) {
+            currentTest = testType;
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            testQuestions = [...testData[testType]];
+            testStartTime = new Date();
+            
+            // Shuffle questions for variety
+            testQuestions = testQuestions.sort(() => Math.random() - 0.5);
+            
+            document.getElementById('test-menu').classList.add('hidden');
+            document.getElementById('test-interface').classList.remove('hidden');
+            
+            showQuestion();
+        }
+
+        // Display current question
+        function showQuestion() {
+            const question = testQuestions[currentQuestionIndex];
+            const questionArea = document.getElementById('question-area');
+            
+            questionArea.innerHTML = `
+                <div class="question-container">
+                    <div class="question">
+                        Question ${currentQuestionIndex + 1} of ${testQuestions.length}
+                    </div>
+                    <div class="question">
+                        ${question.question}
+                    </div>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option" onclick="selectOption(${index})">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            updateProgress();
+            updateScore();
+            
+            // Reset next button
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.textContent = currentQuestionIndex === testQuestions.length - 1 ? 'Finish Test' : 'Next Question';
+            nextBtn.style.display = 'none';
+        }
+
+        // Select an option
+        function selectOption(optionIndex) {
+            const options = document.querySelectorAll('.option');
+            const question = testQuestions[currentQuestionIndex];
+            
+            // Remove previous selections
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            options[optionIndex].classList.add('selected');
+            
+            // Show correct answer
+            setTimeout(() => {
+                options[question.correct].classList.add('correct');
+                if (optionIndex !== question.correct) {
+                    options[optionIndex].classList.add('incorrect');
+                }
+                
+                // Show explanation
+                const explanation = document.createElement('div');
+                explanation.style.marginTop = '20px';
+                explanation.style.padding = '15px';
+                explanation.style.backgroundColor = '#f8f9fa';
+                explanation.style.borderRadius = '10px';
+                explanation.innerHTML = `<strong>Explanation:</strong> ${question.explanation}`;
+                document.querySelector('.question-container').appendChild(explanation);
+                
+                // Show next button
+                document.getElementById('next-btn').style.display = 'block';
+                
+                // Update score
+                if (optionIndex === question.correct) {
+                    score++;
+                }
+                userAnswers.push(optionIndex);
+                updateScore();
+            }, 500);
+        }
+
+        // Next question
+        function nextQuestion() {
+            if (currentQuestionIndex < testQuestions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                finishTest();
+            }
+        }
+
+        // Finish test
+        function finishTest() {
+            const testEndTime = new Date();
+            const timeSpent = (testEndTime - testStartTime) / 1000; // in seconds
+            const percentage = Math.round((score / testQuestions.length) * 100);
+            let grade, message;
+            
+            if (percentage >= 90) {
+                grade = 'A';
+                message = 'Excellent! You have mastered this topic! 🎉';
+            } else if (percentage >= 80) {
+                grade = 'B';
+                message = 'Great job! You have a solid understanding! 👍';
+            } else if (percentage >= 70) {
+                grade = 'C';
+                message = 'Good work! Review the study materials to improve. 📚';
+            } else if (percentage >= 60) {
+                grade = 'D';
+                message = 'You\'re getting there! More study needed. 💪';
+            } else {
+                grade = 'F';
+                message = 'Keep studying! Use the flashcards and videos. 📖';
+            }
+
+            // Save test result for student (not admin)
+            if (!isAdmin && currentUser && userData[currentUser]) {
+                const testResult = {
+                    testType: currentTest,
+                    score: score,
+                    totalQuestions: testQuestions.length,
+                    percentage: percentage,
+                    grade: grade,
+                    timeSpent: timeSpent,
+                    completedAt: testEndTime.toISOString(),
+                    answers: userAnswers
+                };
+                
+                userData[currentUser].tests.push(testResult);
+                saveUserData();
+            }
+            
+            document.getElementById('question-area').innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <h2>Test Complete!</h2>
+                    <div style="font-size: 4rem; margin: 20px 0;">${grade}</div>
+                    <div style="font-size: 2rem; margin: 20px 0; color: #667eea;">
+                        ${score}/${testQuestions.length} (${percentage}%)
+                    </div>
+                    <p style="font-size: 1.2rem; margin: 20px 0;">${message}</p>
+                    <div style="margin-top: 30px;">
+                        <button class="btn btn-primary" onclick="startTest('${currentTest}')" style="margin: 0 10px;">
+                            Retake Test
+                        </button>
+                        <button class="btn btn-secondary" onclick="backToMenu()" style="margin: 0 10px;">
+                            Back to Menu
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('next-btn').style.display = 'none';
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / testQuestions.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        // Update score display
+        function updateScore() {
+            document.getElementById('score-display').textContent = `Score: ${score}/${testQuestions.length}`;
+        }
+
+        // Back to test menu
+        function backToMenu() {
+            document.getElementById('test-menu').classList.remove('hidden');
+            document.getElementById('test-interface').classList.add('hidden');
+            currentTest = null;
+        }
+
+        // Handle Enter key for login forms
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                if (!document.getElementById('login-screen').classList.contains('hidden')) {
+                    loginStudent();
+                } else if (!document.getElementById('admin-login').classList.contains('hidden')) {
+                    loginAdmin();
+                }
+            }
+        });
+    </script>
+</body>
+</html>d #ddd;">Dopamine</td>
                                         <td style="padding: 10px; border: 1px soli
